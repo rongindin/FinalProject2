@@ -1,0 +1,5 @@
+bin
+obj
+database.sqlite
+.codex
+*.js

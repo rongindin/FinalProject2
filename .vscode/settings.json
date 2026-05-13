@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    ".vscode": true,
+    "DatabaseUtilities": true,
+    "FileUtilities": true,
+    "LoggingUtilities": true,
+    "ServerUtilities": true,
+    "website/clientUtilities.ts": true,
+    "website/componentUtilities.ts": true,
+    ".gitignore": true,
+    ".sync-config.yml": true,
+    "README.md": true,
+    "tsconfig.json": true,
+    "**/*.js": true,
+    ".codex": true,
+  },
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+}

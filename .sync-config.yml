@@ -1,0 +1,12 @@
+files:
+- .vscode/settings.json
+- .vscode/tasks.json
+- DatabaseUtilities/DatabaseCore.cs
+- LoggingUtilities/Log.cs
+- ServerUtilities/Request.cs
+- ServerUtilities/Server.cs
+- website/clientUtilities.ts
+- website/componentUtilities.ts
+- .gitignore
+- Project.csproj
+- tsconfig.json
