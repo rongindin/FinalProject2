@@ -1,16 +1,213 @@
-#containerDiv {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+* {
+  box-sizing: border-box;
 }
 
-.authDiv {
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(circle at top, #1f8f4d, #064321 55%, #021b0d);
+  color: white;
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.table {
+  width: min(1050px, 100%);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+p {
+  margin: 6px 0 0;
+  opacity: 0.75;
+}
+
+.stats {
+  display: flex;
+  gap: 14px;
+}
+
+.stats div {
+  min-width: 120px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.stats span {
+  display: block;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.stats strong {
+  font-size: 22px;
+}
+
+.bet-panel,
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 22px 0;
+  flex-wrap: wrap;
+}
+
+input {
+  width: 160px;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 18px;
+  outline: none;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 24px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffd86b, #f7a928);
+  color: #231600;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+}
+
+.game-area {
+  display: grid;
+  gap: 26px;
+}
+
+.hand {
+  min-height: 190px;
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.hand h2 {
+  margin: 0 0 18px;
+  font-size: 24px;
+}
+
+.cards {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 82px;
+  height: 120px;
+  border-radius: 14px;
+  background: white;
+  color: #111;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  animation: pop 0.2s ease;
+}
+
+.card.red {
+  color: #c62828;
+}
+
+.card.back {
+  background: repeating-linear-gradient(
+    45deg,
+    #123dff,
+    #123dff 8px,
+    #0b24a8 8px,
+    #0b24a8 16px
+  );
+  color: white;
+}
+
+.card .bottom {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.message {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.85) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .card {
+    width: 68px;
+    height: 100px;
+  }
 }

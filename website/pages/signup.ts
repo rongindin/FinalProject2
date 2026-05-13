@@ -1,0 +1,33 @@
+import { send } from "clientUtilities";
+
+const usernameInput = document.querySelector<HTMLInputElement>("#usernameInput")!;
+const passwordInput = document.querySelector<HTMLInputElement>("#passwordInput")!;
+const confirmInput = document.querySelector<HTMLInputElement>("#confirmInput")!;
+const submitButton = document.querySelector<HTMLButtonElement>("#submitButton")!;
+const errorDiv = document.querySelector<HTMLDivElement>("#errorDiv")!;
+
+submitButton.onclick = async function () {
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value;
+  const confirmPassword = confirmInput.value;
+
+  if (username == "" || password == "") {
+    errorDiv.innerText = "Please enter username and password.";
+    return;
+  }
+
+  if (password != confirmPassword) {
+    errorDiv.innerText = "Passwords do not match.";
+    return;
+  }
+
+  const token = await send<string | null>("signUp", username, password);
+
+  if (token == null) {
+    errorDiv.innerText = "Username already exists.";
+    return;
+  }
+
+  localStorage.setItem("userToken", token);
+  location.href = "index.html";
+};

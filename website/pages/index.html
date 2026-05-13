@@ -1,16 +1,65 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="index.css" />
-    <title>Index Page</title>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackjack</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="table">
+      <header class="top-bar">
+  <div>
+    <h1>Blackjack</h1>
+    <p>Virtual money only</p>
+  </div>
 
-  <body>
-    <div>jjj</div>
-    <input id="itemInput" placeholder="Item">
-    <input id="amountInput" placeholder="Amount">
-    <button id="addButton">Add</button>
-    <ul id="itemsUl"></ul>
-    <script type="module" src="index.js"></script>
-  </body>
+  <div class="stats">
+    <div>
+      <span>Balance</span>
+      <strong id="balance">$10,000</strong>
+    </div>
+    <div>
+      <span>Bet</span>
+      <strong id="currentBet">$0</strong>
+    </div>
+  </div>
+
+  <div class="user-box">
+    <span id="usernameText">Guest</span>
+    <button id="logoutBtn" class="secondary">Log Out</button>
+  </div>
+  </header>
+
+      <section class="bet-panel">
+        <input id="betInput" type="number" min="10" step="10" value="100" />
+        <button id="dealBtn">Deal</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </section>
+
+      <section class="game-area">
+        <div class="hand">
+          <h2>Dealer <span id="dealerScore"></span></h2>
+          <div id="dealerCards" class="cards"></div>
+        </div>
+
+        <div class="message" id="message">Place your bet and deal.</div>
+
+        <div class="hand">
+          <h2>Player <span id="playerScore"></span></h2>
+          <div id="playerCards" class="cards"></div>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button id="hitBtn" disabled>Hit</button>
+        <button id="standBtn" disabled>Stand</button>
+        <button id="doubleBtn" disabled>Double</button>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="index.js"></script>
+</body>
 </html>
