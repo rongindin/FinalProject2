@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blackjack</title>
   <link rel="stylesheet" href="index.css" />
-  <link rel="icon" type="image/x-icon" href="website/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/website/favicon.ico">
 </head>
 <body>
   <main class="app">
@@ -59,6 +59,17 @@
         <button id="doubleBtn" disabled>Double</button>
       </section>
     </section>
+
+    <section class="leaderboard">
+  <div class="leaderboard-header">
+    <h2>Leaderboard</h2>
+    <button id="refreshLeaderboardBtn" class="secondary">Refresh</button>
+  </div>
+
+  <div id="leaderboardList" class="leaderboard-list">
+    Loading leaderboard...
+  </div>
+</section>
   </main>
 
   <script type="module" src="index.js"></script>

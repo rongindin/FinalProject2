@@ -9,8 +9,13 @@ submitButton.onclick = async function () {
   const username = usernameInput.value.trim();
   const password = passwordInput.value;
 
-  if (username == "" || password == "") {
-    errorDiv.innerText = "Please enter username and password.";
+  if (username == "") {
+    errorDiv.innerText = "Please enter a username.";
+    return;
+  }
+
+  if (password == "") {
+    errorDiv.innerText = "Please enter a password.";
     return;
   }
 
@@ -22,5 +27,6 @@ submitButton.onclick = async function () {
   }
 
   localStorage.setItem("userToken", token);
+
   location.href = "index.html";
 };

@@ -24,8 +24,36 @@ body {
 }
 
 #mainbutton:hover{
-color:aqua;
-animation: pulse-glow 2s infinite alternate;
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: rainbow-move 7s linear infinite;
+}
+
+@keyframes rainbow-move {
+  0% {
+    background-position: 0%;
+  }
+
+  100% {
+    background-position: 400%;
+  }
 }
 
 #circle {
@@ -34,3 +62,36 @@ animation: pulse-glow 2s infinite alternate;
   background-color: #3498db;
   border-radius: 50%; /* Rounds corners into a circle */
 }
+
+#containerDiv{
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: rainbow-move 7s linear infinite;
+}
+
+#n404{
+  display:flex;
+  justify-content: center;
+}
+
+#containers{
+  -webkit-text-stroke: 1px #000;
+}
+

@@ -1,8 +1,9 @@
-export type Item = {
-  name: string;
-  amount: number;
-};
- export type User = {
+export type User = {
   name: string;
   balance: number;
- };
+};
+
+export type LeaderboardUser = {
+  name: string;
+  balance: number;
+};

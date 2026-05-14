@@ -211,3 +211,62 @@ button.secondary {
     height: 100px;
   }
 }
+
+.leaderboard {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.leaderboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.leaderboard-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.leaderboard-header button {
+  width: auto;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.leaderboard-list {
+  display: grid;
+  gap: 10px;
+}
+
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.leaderboard-rank {
+  font-weight: bold;
+  color: #ffd86b;
+}
+
+.leaderboard-name {
+  font-weight: bold;
+}
+
+.leaderboard-balance {
+  font-weight: bold;
+}
+
+.leaderboard-row.me {
+  outline: 2px solid #ffd86b;
+  background: rgba(255, 216, 107, 0.16);
+}

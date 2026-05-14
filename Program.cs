@@ -29,77 +29,32 @@ class Program
       {
         if (request.Name == "signUp")
         {
-          var (username, password) = request.GetParams<(string, string)>();
-
-          if (database.Users.Any(user => user.Name == username))
-          {
-            request.Respond<string?>(null);
-            continue;
-          }
-
-          var token = Guid.NewGuid().ToString();
-          var user = new User(token, username, password);
-
-          database.Users.Add(user);
-          database.SaveChanges();
-
-          request.Respond(token);
+          SignUp(request, database);
         }
 
         else if (request.Name == "logIn")
         {
-          var (username, password) = request.GetParams<(string, string)>();
-
-          var user = database.Users.FirstOrDefault(user =>
-            user.Name == username &&
-            user.Password == password
-          );
-
-          request.Respond(user?.Token);
+          LogIn(request, database);
         }
 
         else if (request.Name == "getUser")
         {
-          var token = request.GetParams<string?>();
-
-          var user = token == null
-            ? null
-            : database.Users.FirstOrDefault(user => user.Token == token);
-
-          request.Respond(user);
+          GetUser(request, database);
         }
 
         else if (request.Name == "getBalance")
         {
-          var token = request.GetParams<string>();
-
-          var user = database.Users.FirstOrDefault(user => user.Token == token);
-
-          if (user == null)
-          {
-            request.Respond<double?>(null);
-            continue;
-          }
-
-          request.Respond(user.Balance);
+          GetBalance(request, database);
         }
 
         else if (request.Name == "saveBalance")
         {
-          var (token, newBalance) = request.GetParams<(string, double)>();
+          SaveBalance(request, database);
+        }
 
-          var user = database.Users.FirstOrDefault(user => user.Token == token);
-
-          if (user == null)
-          {
-            request.Respond(false);
-            continue;
-          }
-
-          user.Balance = newBalance;
-          database.SaveChanges();
-
-          request.Respond(true);
+        else if (request.Name == "getLeaderboard")
+        {
+          GetLeaderboard(request, database);
         }
       }
       catch (Exception exception)
@@ -108,6 +63,106 @@ class Program
         Log.WriteException(exception);
       }
     }
+  }
+
+  static void SignUp(Request request, Database database)
+  {
+    var (username, password) = request.GetParams<(string, string)>();
+
+    bool usernameAlreadyExists = database.Users.Any(user => user.Name == username);
+
+    if (usernameAlreadyExists)
+    {
+      request.Respond<string?>(null);
+      return;
+    }
+
+    string token = Guid.NewGuid().ToString();
+
+    var newUser = new User(token, username, password);
+
+    database.Users.Add(newUser);
+    database.SaveChanges();
+
+    request.Respond(token);
+  }
+
+  static void LogIn(Request request, Database database)
+  {
+    var (username, password) = request.GetParams<(string, string)>();
+
+    var user = database.Users.FirstOrDefault(user =>
+      user.Name == username &&
+      user.Password == password
+    );
+
+    if (user == null)
+    {
+      request.Respond<string?>(null);
+      return;
+    }
+
+    request.Respond(user.Token);
+  }
+
+  static void GetUser(Request request, Database database)
+  {
+    string? token = request.GetParams<string?>();
+
+    if (token == null)
+    {
+      request.Respond<User?>(null);
+      return;
+    }
+
+    var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+    request.Respond(user);
+  }
+
+  static void GetBalance(Request request, Database database)
+  {
+    string token = request.GetParams<string>();
+
+    var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+    if (user == null)
+    {
+      request.Respond<double?>(null);
+      return;
+    }
+
+    request.Respond(user.Balance);
+  }
+
+  static void SaveBalance(Request request, Database database)
+  {
+    var (token, newBalance) = request.GetParams<(string, double)>();
+
+    var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+    if (user == null)
+    {
+      request.Respond(false);
+      return;
+    }
+
+    user.Balance = newBalance;
+
+    database.SaveChanges();
+
+    request.Respond(true);
+  }
+
+  static void GetLeaderboard(Request request, Database database)
+  {
+    var leaderboard = database.Users
+      .OrderByDescending(user => user.Balance)
+      .Take(10)
+      .Select(user => new LeaderboardUser(user.Name, user.Balance))
+      .ToList();
+
+    request.Respond(leaderboard);
   }
 }
 
@@ -129,4 +184,11 @@ class User(string token, string name, string password)
   public string Password { get; set; } = password;
 
   public double Balance { get; set; } = 10000;
+}
+
+class LeaderboardUser(string name, double balance)
+{
+  public string Name { get; set; } = name;
+
+  public double Balance { get; set; } = balance;
 }
