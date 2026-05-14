@@ -29,7 +29,6 @@ if (user == null) {
   localStorage.removeItem("userToken");
   location.href = "login.html";
 }
-
 const currentUser = user!;
 
 const balanceText = document.getElementById("balance")!;

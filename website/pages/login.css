@@ -46,6 +46,13 @@ input {
   border-radius: 14px;
   font-size: 16px;
   outline: none;
+  transition: background-color 0.5s ease-in-out;
+ 
+}
+
+input:focus {
+  background-color: #000;
+  color: #ffffff;
 }
 
 button {
@@ -58,6 +65,13 @@ button {
   cursor: pointer;
   background: linear-gradient(135deg, #ffd86b, #f7a928);
   color: #231600;
+  transition: 0.3s ease-in-out;
+  box-shadow: none;
+}
+
+button:hover{
+  transform:scale(1.07);
+  box-shadow: 0 0 10px #ffd86b;
 }
 
 .error {
@@ -72,6 +86,13 @@ button {
 }
 
 a {
-  color: #ffd86b;
+  color: #ffd562;
   font-weight: bold;
+  text-shadow: 0px 0px 0px #fff;
 }
+
+a:hover{
+  color:#ffcc00;
+  text-shadow: #ffcc00 1px 0 10px;
+}
+
