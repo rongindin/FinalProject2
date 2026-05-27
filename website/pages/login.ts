@@ -4,6 +4,7 @@ const usernameInput = document.querySelector<HTMLInputElement>("#usernameInput")
 const passwordInput = document.querySelector<HTMLInputElement>("#passwordInput")!;
 const submitButton = document.querySelector<HTMLButtonElement>("#submitButton")!;
 const errorDiv = document.querySelector<HTMLDivElement>("#errorDiv")!;
+const toggleButton = document.querySelector<HTMLButtonElement>("#togglePassword")!;
 
 submitButton.onclick = async function () {
   const username = usernameInput.value.trim();
@@ -30,3 +31,14 @@ submitButton.onclick = async function () {
 
   location.href = "index.html";
 };
+
+if (toggleButton && passwordInput) {
+  toggleButton.addEventListener("click", function (this:HTMLButtonElement) {
+    const isPassword = passwordInput.type === "password";
+
+    passwordInput.type = isPassword ? "text" : "password";
+
+    this.textContent = isPassword ? "Hide" : "Show";
+  })
+}
+

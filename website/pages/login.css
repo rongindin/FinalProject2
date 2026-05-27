@@ -27,15 +27,15 @@ body {
   box-shadow: none;
   text-align: center;
   transition: 0.3s ease-in-out;
-  animation: shadow-pulse 0.9s infinite alternate;
+  animation: shadow-pulse 2s infinite alternate;
 }
 
 @keyframes shadow-pulse{
   from {
-    box-shadow: 0 2px 80px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 2px 100px rgba(0, 0, 0, 0.45);
   }
   to {
-    box-shadow: 0 2px 80px rgba(0, 0, 0, 1);
+    box-shadow: 0 2px 100px rgba(0, 0, 0, 0.9);
   }
 }
 
@@ -61,10 +61,12 @@ input {
  
 }
 
-input:focus {
+input:focus{
   background-color: #000;
   color: #ffffff;
+  
 }
+
 
 button {
   width: 100%;
@@ -82,7 +84,6 @@ button {
 
 button:hover{
   transform:scale(1.07);
-  box-shadow: 0 0 10px #ffd86b;
 }
 
 .error {
@@ -104,5 +105,35 @@ a {
 
 a:hover {
   color:#ffcc00;
-  text-shadow: #ffcc00 1px 0 10px;
+  /* text-shadow: #ffcc00 1px 0 10px; */
+}
+
+
+
+
+/* Позиционирование кнопки внутри поля */
+.password-container button {
+  position: absolute;
+  right:28.3%;
+  top: 49.6%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: black;
+  user-select: none;
+  width: auto;
+  transition: 0.3s ease-in-out;
+}
+
+/* Эффект при наведении на кнопку */
+.password-container button:hover {
+  text-decoration: underline;
+}
+
+input:focus + button{
+  color:white;
 }
