@@ -1,17 +1,12 @@
 import { send } from "clientUtilities";
 import type { User, LeaderboardUser } from "types";
-
+import type { Card } from "types";
 /*
   A card has:
   - suit: heart, diamond, spade, or club
   - rank: A, 2, 3, J, Q, K, etc.
   - value: the number value used in Blackjack
 */
-type Card = {
-  suit: string;
-  rank: string;
-  value: number;
-};
 
 /* -----------------------------
    Game variables

@@ -7,3 +7,9 @@ export type LeaderboardUser = {
   name: string;
   balance: number;
 };
+
+export type Card = {
+  suit: string;
+  rank: string;
+  value: number;
+};

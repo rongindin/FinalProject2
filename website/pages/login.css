@@ -24,8 +24,19 @@ body {
   border-radius: 24px;
   background: rgba(0, 0, 0, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  box-shadow: none;
   text-align: center;
+  transition: 0.3s ease-in-out;
+  animation: shadow-pulse 0.9s infinite alternate;
+}
+
+@keyframes shadow-pulse{
+  from {
+    box-shadow: 0 2px 80px rgba(0, 0, 0, 0.45);
+  }
+  to {
+    box-shadow: 0 2px 80px rgba(0, 0, 0, 1);
+  }
 }
 
 .auth-card h1 {
@@ -91,8 +102,7 @@ a {
   text-shadow: 0px 0px 0px #fff;
 }
 
-a:hover{
+a:hover {
   color:#ffcc00;
   text-shadow: #ffcc00 1px 0 10px;
 }
-

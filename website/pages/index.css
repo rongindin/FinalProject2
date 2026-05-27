@@ -270,3 +270,21 @@ button.secondary {
   outline: 2px solid #ffd86b;
   background: rgba(255, 216, 107, 0.16);
 }
+
+.message {
+  width: 100%;
+  overflow: hidden; /* Hides text outside the container */
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+  background: #1f8f4d;
+}
+
+#message {
+  display: inline-block;
+  padding-left: 100%; /* Initial offset to start off-screen */
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
