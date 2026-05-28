@@ -38,7 +38,7 @@ if (toggleButton && passwordInput) {
 
     passwordInput.type = isPassword ? "text" : "password";
 
-    this.textContent = isPassword ? "Hide" : "Show";
+    this.textContent = isPassword ? "👁" : "⦸";
   })
 }
 
