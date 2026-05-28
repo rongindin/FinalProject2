@@ -1,6 +1,7 @@
 import { send } from "clientUtilities";
 import type { User, LeaderboardUser } from "types";
 import type { Card } from "types";
+
 /*
   A card has:
   - suit: heart, diamond, spade, or club
@@ -70,7 +71,33 @@ const logoutButton = document.getElementById("logoutBtn") as HTMLButtonElement;
 const leaderboardList = document.getElementById("leaderboardList")!;
 const refreshLeaderboardButton = document.getElementById("refreshLeaderboardBtn") as HTMLButtonElement;
 
+const themeSelect = document.getElementById("themeSelect") as HTMLSelectElement;
+
 usernameText.textContent = currentUser.name;
+
+/* -----------------------------
+   Theme functions
+----------------------------- */
+
+function loadTheme(): void {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme == null) {
+    document.body.className = "theme-green";
+    themeSelect.value = "theme-green";
+    return;
+  }
+
+  document.body.className = savedTheme;
+  themeSelect.value = savedTheme;
+}
+
+function saveTheme(): void {
+  const selectedTheme = themeSelect.value;
+
+  document.body.className = selectedTheme;
+  localStorage.setItem("theme", selectedTheme);
+}
 
 /* -----------------------------
    Database functions
@@ -469,10 +496,12 @@ if (doubleButton != null) {
 }
 
 refreshLeaderboardButton.onclick = loadLeaderboard;
+themeSelect.onchange = saveTheme;
 
 /* -----------------------------
    Start page
 ----------------------------- */
 
-loadLeaderboard();
+loadTheme();
 loadBalance();
+loadLeaderboard();
