@@ -56,6 +56,16 @@ class Program
         {
           GetLeaderboard(request, database);
         }
+
+        else if (request.Name == "getStreak")
+        {
+          GetStreak(request, database);
+        }
+        
+        else if (request.Name == "saveStreak")
+        {
+          SaveStreak(request, database);
+        }
       }
       catch (Exception exception)
       {
@@ -159,11 +169,45 @@ class Program
     var leaderboard = database.Users
       .OrderByDescending(user => user.Balance)
       .Take(10)
-      .Select(user => new LeaderboardUser(user.Name, user.Balance))
+      .Select(user => new LeaderboardUser(user.Name, user.Balance, user.Streak))
       .ToList();
 
     request.Respond(leaderboard);
   }
+
+
+static void GetStreak(Request request, Database database)
+{
+  string token = request.GetParams<string>();
+
+  var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+  if (user == null)
+  {
+    request.Respond<int?>(null);
+    return;
+  }
+
+  request.Respond(user.Streak);
+}
+
+static void SaveStreak(Request request, Database database)
+{
+  var (token, newStreak) = request.GetParams<(string, int)>();
+
+  var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+  if (user == null)
+  {
+    request.Respond(false);
+    return;
+  }
+
+  user.Streak = newStreak;
+
+  database.SaveChanges();
+
+  request.Respond(true);
 }
 
 class Database() : DatabaseCore("database")
@@ -184,11 +228,17 @@ class User(string token, string name, string password)
   public string Password { get; set; } = password;
 
   public double Balance { get; set; } = 10000;
+  
+  public int Streak { get; set; } = 0;
 }
 
-class LeaderboardUser(string name, double balance)
+class LeaderboardUser(string name, double balance, int streak)
 {
   public string Name { get; set; } = name;
 
   public double Balance { get; set; } = balance;
+
+  public int Streak { get; set; } = streak;
+  
+}
 }

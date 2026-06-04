@@ -17,9 +17,11 @@
       <header class="top-bar">
         <div>
           <h1>Blackjack</h1>
-        </div>
+        </div> 
+   
 
-        <div class="stats">
+        <div class="stats">   
+        
           <div>
             <span>Balance</span>
             <strong id="balance">$10,000</strong>
@@ -29,27 +31,34 @@
             <span>Bet</span>
             <strong id="currentBet">$0</strong>
           </div>
+
+          <div>
+            <span>Winstreak</span>
+            <strong id="currentStreak">0</strong>
+          </div>
         </div>
 
         <div class="user-box">
           <span id="usernameText">Guest</span>
-
-          <select id="themeSelect">
-            <option value="theme-green">Classic Green</option>
-            <option value="theme-dark">Dark Casino</option>
-            <option value="theme-red">Red Casino</option>
-            <option value="theme-pink">Pink Casino</option>
-          </select>
+         
 
           <button id="logoutBtn" class="secondary">Log Out</button>
         </div>
-      </header>
+      </header> 
+      
+     
 
       <section class="bet-panel">
         <input id="betInput" type="number" min="10" step="10" value="100" />
         <button id="allinBtn">All in</button>
         <button id="dealBtn">Deal</button>
-        <button id="resetBtn" class="secondary">Reset</button>
+        <button id="resetBtn" class="secondary">Reset</button> 
+        <select id="themeSelect">
+            <option value="theme-green">Classic Green</option>
+            <option value="theme-dark">Dark Casino</option>
+            <option value="theme-red">Red Casino</option>
+            <option value="theme-pink">Pink Casino</option>
+        </select>
       </section>
 
       <section class="game-area">

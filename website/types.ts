@@ -6,6 +6,7 @@ export type User = {
 export type LeaderboardUser = {
   name: string;
   balance: number;
+  streak: number;
 };
 
 export type Card = {

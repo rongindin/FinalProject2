@@ -19,6 +19,7 @@ let dealerCardsList: Card[] = [];
 
 let balance = 10000;
 let bet = 0;
+let streak = 0;
 
 let gameStarted = false;
 let hideDealerSecondCard = true;
@@ -50,6 +51,7 @@ const currentUser = user;
 
 const balanceText = document.getElementById("balance")!;
 const betText = document.getElementById("currentBet")!;
+const winstreakText = document.getElementById("currentStreak")!;
 const betInput = document.getElementById("betInput") as HTMLInputElement;
 
 const dealerCardsDiv = document.getElementById("dealerCards")!;
@@ -100,6 +102,23 @@ function saveTheme(): void {
   localStorage.setItem("theme", selectedTheme);
 }
 
+const streakKey = "winstreak_" + currentUser.name;
+
+async function loadStreak(): Promise<void> {
+  const savedStreak = await send<number | null>("getStreak", userToken);
+
+  if (savedStreak !== null) {
+    streak = savedStreak;
+  } else {
+    streak = 0;
+  }
+
+  updateScreen();
+}
+
+async function saveStreak(): Promise<void> {
+  await send<boolean>("saveStreak", userToken, streak);
+}
 /* -----------------------------
    Database functions
 ----------------------------- */
@@ -142,8 +161,7 @@ async function loadLeaderboard(): Promise<void> {
       <div class="${rowClass}">
         <div class="leaderboard-rank">#${index + 1}</div>
         <div class="leaderboard-name">${leaderboardPlayer.name}</div>
-        <div class="leaderboard-balance">$${leaderboardPlayer.balance.toLocaleString()}</div>
-      </div>
+        <div class="leaderboard-balance">$${leaderboardPlayer.balance.toLocaleString()}  | |   Streak: ${leaderboardPlayer.streak.toLocaleString()}</div>
     `;
   }
 }
@@ -267,6 +285,14 @@ function createCardHtml(card: Card, isHidden = false): string {
 function updateScreen(): void {
   balanceText.textContent = "$" + balance.toLocaleString();
   betText.textContent = "$" + bet.toLocaleString();
+
+  if(streak > 0)
+  {
+    winstreakText.textContent = streak.toLocaleString() + "🔥";
+  }
+  else{
+    winstreakText.textContent = streak.toLocaleString();
+  }
 
   showPlayerCards();
   showDealerCards();
@@ -454,15 +480,21 @@ function endGame(result: string): void {
   if (result == "blackjack") {
     balance += bet * 2.5;
     messageText.textContent = "Blackjack! You win!";
+    streak += 1;
+    saveStreak();
   }
 
   if (result == "win") {
     balance += bet * 2;
     messageText.textContent = "You win!";
+    streak += 1;
+    saveStreak();
   }
 
   if (result == "lose") {
     messageText.textContent = "You lose.";
+    streak = 0;
+    saveStreak();
   }
 
   if (result == "push") {
@@ -504,6 +536,8 @@ else
 }
 }
 
+
+
 /* -----------------------------
    Button clicks
 ----------------------------- */
@@ -526,10 +560,12 @@ if (doubleButton != null) {
 refreshLeaderboardButton.onclick = loadLeaderboard;
 themeSelect.onchange = saveTheme;
 
+
 /* -----------------------------
    Start page
 ----------------------------- */
 
 loadTheme();
-loadBalance();
+await loadStreak();
+await loadBalance();
 loadLeaderboard();
