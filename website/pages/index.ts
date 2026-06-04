@@ -64,6 +64,7 @@ const hitButton = document.getElementById("hitBtn") as HTMLButtonElement;
 const standButton = document.getElementById("standBtn") as HTMLButtonElement;
 const resetButton = document.getElementById("resetBtn") as HTMLButtonElement;
 const doubleButton = document.getElementById("doubleBtn") as HTMLButtonElement | null;
+const allinButton = document.getElementById("allinBtn") as HTMLButtonElement;
 
 const usernameText = document.getElementById("usernameText")!;
 const logoutButton = document.getElementById("logoutBtn") as HTMLButtonElement;
@@ -109,7 +110,7 @@ async function loadBalance(): Promise<void> {
   if (savedBalance != null) {
     balance = savedBalance;
   }
-
+  
   updateScreen();
 }
 
@@ -124,7 +125,7 @@ async function loadLeaderboard(): Promise<void> {
   leaderboardList.innerHTML = "";
 
   if (leaderboard.length == 0) {
-    leaderboardList.textContent = "No players yet.";
+    leaderboardList.textContent = "No players yet.";   
     return;
   }
 
@@ -314,6 +315,12 @@ function updateButtons(): void {
   hitButton.disabled = !gameStarted;
   standButton.disabled = !gameStarted;
   betInput.disabled = gameStarted;
+  allinButton.disabled = gameStarted || balance <= 0;
+  
+  if(balance == 0 && !gameStarted)
+  {
+    betInput.valueAsNumber = 0;
+  }
 
   if (doubleButton != null) {
     const canDouble =
@@ -402,6 +409,18 @@ function stand(): void {
   }
 }
 
+function allIn(): void {
+
+  if(balance == 0)
+  {
+    return;
+  }
+
+  betInput.valueAsNumber = balance;
+  startGame();
+
+}
+
 function doubleDown(): void {
   if (gameStarted == false) {
     return;
@@ -462,8 +481,11 @@ function endGame(result: string): void {
 }
 
 function resetGame(): void {
-  balance = 10000;
-  bet = 0;
+  if(balance == 0)
+    {
+       balance = 10000;
+       bet = 0;
+    
 
   playerCardsList = [];
   dealerCardsList = [];
@@ -476,11 +498,17 @@ function resetGame(): void {
   updateScreen();
   saveBalance();
 }
+else
+{
+ messageText.textContent = "Can't reset. You still have money."
+}
+}
 
 /* -----------------------------
    Button clicks
 ----------------------------- */
 
+allinButton.onclick = allIn;
 dealButton.onclick = startGame;
 hitButton.onclick = hit;
 standButton.onclick = stand;

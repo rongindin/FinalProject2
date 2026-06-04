@@ -17,12 +17,21 @@ body {
    Themes
 ----------------------------- */
 
+body.theme-pink .message{
+  background: #fabac5;
+}
+
 body.theme-dark .message{
   background:#666666;
 }
 
 body.theme-red .message{
-  background: #3b0202;
+  background: #640404;
+}
+
+body.theme-pink {
+  background:
+    radial-gradient(circle at top, #fabac5, #ff7e93 55%, #f73757);
 }
 
 body.theme-green {
@@ -37,25 +46,48 @@ body.theme-dark {
 
 body.theme-red {
   background:
-    radial-gradient(circle at top, #3b0202, #190000 60%, #000000);
+    radial-gradient(circle at top, #7c0404, #4d0000 60%, #240000);
+}
+
+body.theme-pink .table {
+  background: rgba(65, 0, 11, 0.35);
+  box-shadow:
+    0 0 25px #ff8896,
+    0 0 50px rgba(255, 0, 64, 0.5);
+  border:none;
 }
 
 body.theme-red .table {
+  background: rgba(71, 0, 0, 0.6);
   box-shadow:
     0 0 25px #800000,
     0 0 50px rgba(65, 0, 0, 0.45);
+  border: none;
 }
-
-
 
 body.theme-dark .table {
   background: rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 0 25px #ffffff,
+    0 0 50px rgba(148, 148, 148, 0.45);
+  border:none;
 }
 
 body.theme-dark .hand,
 body.theme-dark .leaderboard,
 body.theme-dark .stats div {
   background: rgba(255, 255, 255, 0.08);
+}
+
+body.theme-pink .card.back {
+  background: repeating-linear-gradient(
+    45deg,
+    #fabac5,
+    #fabac5 8px,
+    #ff6a83 8px,
+    #ff6a83 16px
+  );
+  color: white;
 }
 
 body.theme-dark .card.back {
@@ -80,14 +112,24 @@ body.theme-red .card.back {
   color: white;
 }
 
+body.theme-pink button {
+  background: linear-gradient(135deg, #fabac5, #ff6a83);
+  color: #fff;
+}
+
 body.theme-dark button {
    background: linear-gradient(135deg, #666666, #333333);
    color: #fff;
 }
 
 body.theme-red button {
-  background: linear-gradient(135deg, #660000, #330000);
+  background: linear-gradient(135deg, #800000, #5a0000);
   color: #fff;
+}
+
+body.theme-pink button.secondary {
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
 }
 
 body.theme-dark button.secondary {
@@ -100,6 +142,12 @@ body.theme-red button.secondary {
   color:white;
 }
 
+body.theme-pink .leaderboard-row.me {
+  font-weight: bold;
+  outline-color: rgb(255, 80, 109);
+  background: rgb(255, 50, 84, 0.14);
+}
+
 body.theme-dark .leaderboard-row.me {
   font-weight: bold;
   outline-color: white;
@@ -108,8 +156,8 @@ body.theme-dark .leaderboard-row.me {
 
 body.theme-red .leaderboard-row.me {
   font-weight: bold;
-  outline-color: rgb(255, 0, 0);
-  background: rgb(50, 0, 0);
+  outline-color: rgb(197, 0, 0);
+  background: rgb(99, 0, 0);
 }
 
 /* -----------------------------
