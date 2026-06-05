@@ -69,9 +69,8 @@ button {
   box-shadow:none;
 }
 
-button:hover{
+#submitButton:hover{
   transform:scale(1.07);
-  box-shadow: 0 0 10px #ffd86b;
 }
 
 .error {
@@ -94,4 +93,30 @@ a {
 a:hover{
   color:#ffcc00;
   text-shadow: #ffcc00 1px 0 10px;
+}
+
+.password-container {
+  position:relative;  
+  width: 100%;
+}
+.password-container button {
+  position: absolute;
+  right:10px;
+  top: 36%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  color: black;
+  user-select: none;
+  width: auto;
+  transition: 0.3s ease-in-out;
+  
+}
+
+input:focus + button{
+  color:white;
 }

@@ -15,7 +15,11 @@ body {
 
 /* -----------------------------
    Themes
------------------------------ */
+   ----------------------------- */
+
+body.theme-blue .message{
+  background:#404a7a
+}
 
 body.theme-pink .message{
   background: #fabac5;
@@ -27,6 +31,11 @@ body.theme-dark .message{
 
 body.theme-red .message{
   background: #640404;
+}
+
+body.theme-blue {
+  background:
+  radial-gradient(circle at top, #404a7a, #323d77 55%, #253377)
 }
 
 body.theme-pink {
@@ -47,6 +56,14 @@ body.theme-dark {
 body.theme-red {
   background:
     radial-gradient(circle at top, #7c0404, #4d0000 60%, #240000);
+}
+
+body.theme-blue .table {
+  background: rgba(0, 0 , 66, 0.22);
+  box-shadow:
+    0 0 25px #232c5d,
+    0 0 50px rgba(23, 23, 59, 0.578);
+    border:none;
 }
 
 body.theme-pink .table {
@@ -112,6 +129,11 @@ body.theme-red .card.back {
   color: white;
 }
 
+body.theme-blue button{
+  background: linear-gradient(135deg, #122066, #0b1d76);
+  color:white;
+}
+
 body.theme-pink button {
   background: linear-gradient(135deg, #fabac5, #ff6a83);
   color: #fff;
@@ -127,6 +149,11 @@ body.theme-red button {
   color: #fff;
 }
 
+body.theme-blue button.secondary{
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+}
+
 body.theme-pink button.secondary {
   background: rgba(255, 255, 255, 0.14);
   color: white;
@@ -140,6 +167,12 @@ body.theme-dark button.secondary {
 body.theme-red button.secondary {
   background: rgba(255, 255, 255, 0.14);
   color:white;
+}
+
+body.theme-blue .leaderboard-row.me {
+  font-weight: bold;
+  outline-color: rgb(9, 9, 112);
+  background: rgba(0, 21, 105, 0.1);
 }
 
 body.theme-pink .leaderboard-row.me {

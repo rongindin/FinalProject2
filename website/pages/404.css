@@ -23,67 +23,14 @@ body {
   color: white;
 }
 
-#mainbutton:hover{
-  background: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    lime,
-    cyan,
-    blue,
-    violet,
-    red
-  );
-
-  background-size: 400%;
-  background-clip: text;
-  -webkit-background-clip: text;
-
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-
-  animation: rainbow-move 7s linear infinite;
-}
-
-@keyframes rainbow-move {
-  0% {
-    background-position: 0%;
-  }
-
-  100% {
-    background-position: 400%;
-  }
-}
-
-#circle {
-  height: 100px;
-  width: 100px;
-  background-color: #3498db;
-  border-radius: 50%; /* Rounds corners into a circle */
-}
-
 #containerDiv{
-  background: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    lime,
-    cyan,
-    blue,
-    violet,
-    red
-  );
-
+  background: gold;
   background-size: 400%;
   background-clip: text;
   -webkit-background-clip: text;
 
   color: transparent;
   -webkit-text-fill-color: transparent;
-
-  animation: rainbow-move 7s linear infinite;
 }
 
 #n404{
@@ -94,4 +41,3 @@ body {
 #containers{
   -webkit-text-stroke: 1px #000;
 }
-

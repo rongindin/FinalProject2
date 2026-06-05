@@ -108,13 +108,14 @@ a:hover {
   text-shadow: #ffcc00 1px 0 10px;
 }
 
-
-
-
+.password-container {
+  position:relative;  
+  width: 100%;
+}
 .password-container button {
   position: absolute;
-  right:41%;
-  top: 49.4%;
+  right:10px;
+  top: 35%;
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -126,6 +127,7 @@ a:hover {
   user-select: none;
   width: auto;
   transition: 0.3s ease-in-out;
+  
 }
 
 input:focus + button{
