@@ -7,6 +7,7 @@ export type LeaderboardUser = {
   name: string;
   balance: number;
   streak: number;
+  lose: number;
 };
 
 export type Card = {

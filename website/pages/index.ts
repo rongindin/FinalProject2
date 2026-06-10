@@ -20,6 +20,8 @@ let dealerCardsList: Card[] = [];
 let balance = 10000;
 let bet = 0;
 let streak = 0;
+let lose = 0;
+let maxBalance = 10000;
 
 let gameStarted = false;
 let hideDealerSecondCard = true;
@@ -52,6 +54,7 @@ const currentUser = user;
 const balanceText = document.getElementById("balance")!;
 const betText = document.getElementById("currentBet")!;
 const winstreakText = document.getElementById("currentStreak")!;
+const losestreakText = document.getElementById("currentLose")!;
 const betInput = document.getElementById("betInput") as HTMLInputElement;
 
 const dealerCardsDiv = document.getElementById("dealerCards")!;
@@ -102,7 +105,22 @@ function saveTheme(): void {
   localStorage.setItem("theme", selectedTheme);
 }
 
-const streakKey = "winstreak_" + currentUser.name;
+async function loadLose(): Promise<void> {
+   const savedLose = await send<number | null>("getLose", userToken);
+
+   if (savedLose !== null) {
+     lose = savedLose;
+   }
+   else {
+     lose = 0;
+   }
+
+   updateScreen();
+}
+
+async function saveLose(): Promise<void> {
+  await send<boolean>("saveLose", userToken, lose)
+}
 
 async function loadStreak(): Promise<void> {
   const savedStreak = await send<number | null>("getStreak", userToken);
@@ -143,6 +161,11 @@ async function loadLeaderboard(): Promise<void> {
 
   leaderboardList.innerHTML = "";
 
+  if( balance > maxBalance)
+  {
+    maxBalance = balance;
+  }
+
   if (leaderboard.length == 0) {
     leaderboardList.textContent = "No players yet.";   
     return;
@@ -161,7 +184,7 @@ async function loadLeaderboard(): Promise<void> {
       <div class="${rowClass}">
         <div class="leaderboard-rank">#${index + 1}</div>
         <div class="leaderboard-name">${leaderboardPlayer.name}</div>
-        <div class="leaderboard-balance">$${leaderboardPlayer.balance.toLocaleString()}  | |   Streak: ${leaderboardPlayer.streak.toLocaleString()}</div>
+        <div class="leaderboard-balance">$${leaderboardPlayer.balance.toLocaleString()}  | |    Win Streak: ${leaderboardPlayer.streak.toLocaleString()}  | | Lose Streak: ${leaderboardPlayer.lose.toLocaleString()}</div>
     `;
   }
 }
@@ -292,6 +315,14 @@ function updateScreen(): void {
   }
   else{
     winstreakText.textContent = streak.toLocaleString();
+  }
+
+  if(lose > 0)
+  {
+    losestreakText.textContent = lose.toLocaleString() + "😢";
+  }
+  else{
+    losestreakText.textContent = lose.toLocaleString();
   }
 
   showPlayerCards();
@@ -481,19 +512,25 @@ function endGame(result: string): void {
     balance += bet * 2.5;
     messageText.textContent = "Blackjack! You win!";
     streak += 1;
+    lose = 0;
+    saveLose();
     saveStreak();
   }
 
   if (result == "win") {
     balance += bet * 2;
-    messageText.textContent = "You win!";
+    messageText.textContent = "You Win!";
     streak += 1;
+    lose = 0;
+    saveLose();
     saveStreak();
   }
 
   if (result == "lose") {
     messageText.textContent = "You lose.";
     streak = 0;
+    lose += 1;
+    saveLose();
     saveStreak();
   }
 
@@ -567,5 +604,6 @@ themeSelect.onchange = saveTheme;
 
 loadTheme();
 await loadStreak();
+await loadLose();
 await loadBalance();
 loadLeaderboard();

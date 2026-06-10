@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Project.DatabaseUtilities;
 using Project.LoggingUtilities;
 using Project.ServerUtilities;
@@ -65,6 +66,16 @@ class Program
         else if (request.Name == "saveStreak")
         {
           SaveStreak(request, database);
+        }
+
+        else if (request.Name == "getLose")
+        {
+          GetLose(request, database);
+        }
+
+        else if (request.Name == "saveLose")
+        {
+          SaveLose(request, database);
         }
       }
       catch (Exception exception)
@@ -169,12 +180,45 @@ class Program
     var leaderboard = database.Users
       .OrderByDescending(user => user.Balance)
       .Take(10)
-      .Select(user => new LeaderboardUser(user.Name, user.Balance, user.Streak))
+      .Select(user => new LeaderboardUser(user.Name, user.Balance, user.Streak, user.Lose))
       .ToList();
 
     request.Respond(leaderboard);
   }
 
+  static void GetLose(Request request, Database database)
+  {
+    string token = request.GetParams<string>();
+
+    var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+    if (user == null)
+    {
+      request.Respond<int?>(null);
+      return;
+    }
+
+    request.Respond(user.Lose);
+  }
+
+  static void SaveLose(Request request, Database database)
+  {
+    var (token, newLose) = request.GetParams<(string, int)>();
+
+  var user = database.Users.FirstOrDefault(user => user.Token == token);
+
+  if (user == null)
+  {
+    request.Respond(false);
+    return;
+  }
+
+  user.Lose = newLose;
+
+  database.SaveChanges();
+
+  request.Respond(true);
+  }
 
 static void GetStreak(Request request, Database database)
 {
@@ -230,15 +274,18 @@ class User(string token, string name, string password)
   public double Balance { get; set; } = 10000;
   
   public int Streak { get; set; } = 0;
+
+  public int Lose { get; set; } = 0;
 }
 
-class LeaderboardUser(string name, double balance, int streak)
+class LeaderboardUser(string name, double balance, int streak, int lose)
 {
   public string Name { get; set; } = name;
 
   public double Balance { get; set; } = balance;
 
   public int Streak { get; set; } = streak;
-  
+
+  public int Lose { get; set; } =  lose;
 }
 }
